@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day Inquiry</title>
+<title>Parameters</title>
 <style>
   body { 
     display: flex; 
@@ -52,19 +52,19 @@
         const hasGood = response.includes("good");
         const hasBad = response.includes("bad");
         if (hasGood && hasBad) {
-          return Math.random() < 0.5 ? "left" : "right";
+          return Math.random() < 0.5 ? "front" : "back";
         } else if (hasGood) {
-          return "right";
+          return "back";
         } else if (hasBad) {
-          return "left";
+          return "front";
         } else {
-          return Math.random() < 0.5 ? "left" : "right";
+          return Math.random() < 0.5 ? "front" : "back";
         }
       }
       
       function determineDistance(response) {
         const wordCount = response.split(" ").filter(Boolean).length;
-        return wordCount > 10 ? "afar" : "close up";
+        return wordCount > 10 ? "afar" : "up close";
       }
       
       let side = determineSide(userResponse);
