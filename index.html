@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<div id="questionDisplay">How was your day today?</div>
+<div id="questionDisplay">Tell me how your day was?</div>
 <form id="responseForm">
   <input type="text" id="userResponse" placeholder="Type your answer here..." required>
   <input type="submit" value="Submit">
@@ -44,34 +44,38 @@
 <div id="detailsDisplay"></div>
 
 <script>
-  document.getElementById("responseForm").onsubmit = function(event) {
-    event.preventDefault();
-    let userResponse = document.getElementById("userResponse").value;
-
-    function determineSide(response) {
-      const hasGood = response.includes("good");
-      const hasBad = response.includes("bad");
-      if (hasGood && hasBad) {
-        return Math.random() < 0.5 ? "left" : "right";
-      } else if (hasGood) {
-        return "right";
-      } else if (hasBad) {
-        return "left";
-      } else {
-        return Math.random() < 0.5 ? "left" : "right";
+    document.getElementById("responseForm").onsubmit = function(event) {
+      event.preventDefault();
+      let userResponse = document.getElementById("userResponse").value;
+      
+      function determineSide(response) {
+        const hasGood = response.includes("good");
+        const hasBad = response.includes("bad");
+        if (hasGood && hasBad) {
+          return Math.random() < 0.5 ? "left" : "right";
+        } else if (hasGood) {
+          return "right";
+        } else if (hasBad) {
+          return "left";
+        } else {
+          return Math.random() < 0.5 ? "left" : "right";
+        }
       }
-    }
-
-    function determineDistance(response) {
-      const wordCount = response.split(" ").filter(Boolean).length;
-      return wordCount > 10 ? "far" : "close";
-    }
-
-    let side = determineSide(userResponse);
-    let distance = determineDistance(userResponse);
-    
-    document.getElementById("detailsDisplay").innerText = `Your response: ${userResponse}\nSide: ${side}, Distance: ${distance}`;
-  };
-</script>
+      
+      function determineDistance(response) {
+        const wordCount = response.split(" ").filter(Boolean).length;
+        return wordCount > 10 ? "afar" : "close up";
+      }
+      
+      let side = determineSide(userResponse);
+      let distance = determineDistance(userResponse);
+      
+      document.getElementById("detailsDisplay").innerText = `Go to the ${side} of the room, and observe the work from ${distance}`;
+      
+      // Hide the form and question display after submission
+      document.getElementById("responseForm").style.display = "none";
+      document.getElementById("questionDisplay").style.display = "none";
+    };
+  </script>
 </body>
 </html>
