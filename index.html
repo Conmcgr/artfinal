@@ -14,43 +14,64 @@
     margin: 0; 
     font-family: Arial, sans-serif; 
   }
-  #responseDisplay, #detailsDisplay {
+  #detailsDisplay {
     text-align: center;
-    margin: 20px;
+    margin-top: 20px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  input[type="text"] {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+  input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
   }
 </style>
 </head>
 <body>
-<div id="responseDisplay">Your response will appear here...</div>
-<div id="detailsDisplay">Details will appear here...</div>
+<div id="questionDisplay">How was your day today?</div>
+<form id="responseForm">
+  <input type="text" id="userResponse" placeholder="Type your answer here..." required>
+  <input type="submit" value="Submit">
+</form>
+<div id="detailsDisplay"></div>
 
 <script>
-  let userResponse = prompt("How was your day today?");
-  document.getElementById("responseDisplay").innerText = `Your response: ${userResponse}`;
+  document.getElementById("responseForm").onsubmit = function(event) {
+    event.preventDefault();
+    let userResponse = document.getElementById("userResponse").value;
 
-  function determineSide(response) {
-    const hasGood = response.includes("good");
-    const hasBad = response.includes("bad");
-    if (hasGood && hasBad) {
-      return Math.random() < 0.5 ? "left" : "right";
-    } else if (hasGood) {
-      return "right";
-    } else if (hasBad) {
-      return "left";
-    } else {
-      return Math.random() < 0.5 ? "left" : "right";
+    function determineSide(response) {
+      const hasGood = response.includes("good");
+      const hasBad = response.includes("bad");
+      if (hasGood && hasBad) {
+        return Math.random() < 0.5 ? "left" : "right";
+      } else if (hasGood) {
+        return "right";
+      } else if (hasBad) {
+        return "left";
+      } else {
+        return Math.random() < 0.5 ? "left" : "right";
+      }
     }
-  }
 
-  function determineDistance(response) {
-    const wordCount = response.split(" ").filter(Boolean).length;
-    return wordCount > 10 ? "far" : "close";
-  }
+    function determineDistance(response) {
+      const wordCount = response.split(" ").filter(Boolean).length;
+      return wordCount > 10 ? "far" : "close";
+    }
 
-  let side = determineSide(userResponse);
-  let distance = determineDistance(userResponse);
-  
-  document.getElementById("detailsDisplay").innerText = `Side: ${side}, Distance: ${distance}`;
+    let side = determineSide(userResponse);
+    let distance = determineDistance(userResponse);
+    
+    document.getElementById("detailsDisplay").innerText = `Your response: ${userResponse}\nSide: ${side}, Distance: ${distance}`;
+  };
 </script>
 </body>
 </html>
