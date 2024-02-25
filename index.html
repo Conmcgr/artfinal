@@ -64,7 +64,7 @@
       
       function determineDistance(response) {
         const wordCount = response.split(" ").filter(Boolean).length;
-        return wordCount > 5 ? "afar" : "up close";
+        return wordCount > 6 ? "afar" : "up close";
       }
       
       let side = determineSide(userResponse);
